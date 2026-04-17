@@ -114,18 +114,12 @@ public sealed class TombolaGame
                     break;
 
                 case "cartelle":
-                    _renderer.PulisciSchermo();
-                    _renderer.StampaStatoGiocatori(_giocatori, _tabellone);
-                    _renderer.AttendiInvio();
-                    _renderer.PulisciSchermo();
+                    MostraCartellePulite();
                     break;
 
                 case "tabellone":
                 case "mostra tabellone":
-                    _renderer.PulisciSchermo();
-                    _renderer.StampaTabellone(_tabellone);
-                    _renderer.AttendiInvio();
-                    _renderer.PulisciSchermo();
+                    MostraTabellonePulito();
                     break;
 
                 case "premi":
@@ -401,5 +395,21 @@ public sealed class TombolaGame
         _renderer.StampaMessaggio($"Report salvato in: {percorsoReport}");
 
         _renderer.AttendiInvio("Premi Invio per terminare la partita...");
+    }
+
+    private void MostraCartellePulite()
+    {
+        _renderer.PulisciSchermo();
+        _renderer.StampaStatoGiocatori(_giocatori, _tabellone);
+        _renderer.AttendiInvio();
+        _renderer.PulisciSchermo();
+    }
+
+    private void MostraTabellonePulito()
+    {
+        _renderer.PulisciSchermo();
+        _renderer.StampaTabellone(_tabellone);
+        _renderer.AttendiInvio();
+        _renderer.PulisciSchermo();
     }
 }

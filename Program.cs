@@ -15,21 +15,40 @@ internal static class Program
         Console.Title = "Tombola C#";
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        Console.WriteLine("CONFIGURAZIONE PARTITA");
-        Console.WriteLine(new string('-', 40));
-
-        var configurazioni = RaccogliConfigurazioniGiocatori();
-
         var generatoreCartelle = new GeneratoreCartelle();
         var gestoreReport = new GestoreReport();
         var renderer = new RenderingConsoleTombola();
 
-        var gioco = new TombolaGame(configurazioni, generatoreCartelle, gestoreReport, renderer);
-        gioco.Avvia();
+        var configurazioni = RaccogliConfigurazioniGiocatori();
+
+        while (true)
+        {
+            var gioco = new TombolaGame(configurazioni, generatoreCartelle, gestoreReport, renderer);
+            gioco.Avvia();
+
+            var scelta = ValidatorInput.LeggiSceltaPostPartita();
+            switch (scelta)
+            {
+                case SceltaPostPartita.Termina:
+                    return;
+
+                case SceltaPostPartita.RicominciaConStesseImpostazioni:
+                    renderer.PulisciSchermo();
+                    break;
+
+                case SceltaPostPartita.RiconfiguraGiocatori:
+                    renderer.PulisciSchermo();
+                    configurazioni = RaccogliConfigurazioniGiocatori();
+                    break;
+            }
+        }
     }
 
     private static List<ConfigurazioneGiocatore> RaccogliConfigurazioniGiocatori()
     {
+        Console.WriteLine("CONFIGURAZIONE PARTITA");
+        Console.WriteLine(new string('-', 40));
+
         var includeTabellone = ValidatorInput.LeggiIncludiGiocatoreTabellone();
         var minimoGiocatoriUmani = includeTabellone ? 1 : 2;
         var numeroGiocatori = ValidatorInput.LeggiNumeroGiocatori(minimoGiocatoriUmani, 10);

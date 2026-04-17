@@ -27,7 +27,26 @@ public sealed class RenderingConsoleTombola
 
     public void PulisciSchermo()
     {
-        Console.Clear();
+        try
+        {
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+            ProvaPuliziaScrollbackAnsi();
+        }
+        catch (IOException)
+        {
+            if (!ProvaPuliziaCompletaAnsi())
+            {
+                StampaNuoveLineeDiPulizia();
+            }
+        }
+        catch (PlatformNotSupportedException)
+        {
+            if (!ProvaPuliziaCompletaAnsi())
+            {
+                StampaNuoveLineeDiPulizia();
+            }
+        }
     }
 
     public void StampaBenvenuto(IReadOnlyList<Giocatore> giocatori)
@@ -419,5 +438,56 @@ public sealed class RenderingConsoleTombola
     private static string FormattaNumero(int numero)
     {
         return numero.ToString("00");
+    }
+
+    private static void StampaNuoveLineeDiPulizia()
+    {
+        for (var i = 0; i < 200; i++)
+        {
+            Console.WriteLine();
+        }
+    }
+
+    private static bool ProvaPuliziaCompletaAnsi()
+    {
+        if (Console.IsOutputRedirected)
+        {
+            return false;
+        }
+
+        try
+        {
+            Console.Write("\u001b[3J\u001b[2J\u001b[H");
+            Console.Out.Flush();
+            return true;
+        }
+        catch (IOException)
+        {
+            return false;
+        }
+        catch (PlatformNotSupportedException)
+        {
+            return false;
+        }
+    }
+
+    private static void ProvaPuliziaScrollbackAnsi()
+    {
+        if (Console.IsOutputRedirected)
+        {
+            return;
+        }
+
+        try
+        {
+            Console.Write("\u001b[3J");
+            Console.Out.Flush();
+        }
+        catch (IOException)
+        {
+        }
+        catch (PlatformNotSupportedException)
+        {
+        }
     }
 }

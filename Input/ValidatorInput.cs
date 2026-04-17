@@ -1,5 +1,12 @@
 namespace Tombola.Input;
 
+public enum SceltaPostPartita
+{
+    Termina = 1,
+    RicominciaConStesseImpostazioni = 2,
+    RiconfiguraGiocatori = 3
+}
+
 public static class ValidatorInput
 {
     public static int LeggiNumeroGiocatori(int minimo, int massimo = 10)
@@ -104,6 +111,28 @@ public static class ValidatorInput
             }
 
             return numero;
+        }
+    }
+
+    public static SceltaPostPartita LeggiSceltaPostPartita()
+    {
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("PARTITA CONCLUSA");
+            Console.WriteLine("1) Termina il gioco");
+            Console.WriteLine("2) Ricomincia con le stesse impostazioni");
+            Console.WriteLine("3) Riconfigura giocatori e cartelle");
+            Console.Write("Scelta (1-3): ");
+
+            var input = Console.ReadLine();
+            if (!int.TryParse(input, out var scelta) || scelta is < 1 or > 3)
+            {
+                Console.WriteLine("Scelta non valida. Inserisci 1, 2 oppure 3.");
+                continue;
+            }
+
+            return (SceltaPostPartita)scelta;
         }
     }
 }
