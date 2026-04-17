@@ -70,6 +70,7 @@ public sealed class RenderingConsoleTombola
         Console.WriteLine($"Ultimo numero estratto: {tabellone.UltimoEstratto:00}");
         Console.WriteLine($"Totale estrazioni: {tabellone.TotaleEstratti}");
         Console.WriteLine($"Numeri usciti: {string.Join(", ", tabellone.EstrattiOrdinati.Select(FormattaNumero))}");
+        Console.WriteLine("Comandi disponibili: Invio, scorri, cartelle, tabellone, premi, help");
     }
 
     public string ChiediComando()
@@ -101,6 +102,8 @@ public sealed class RenderingConsoleTombola
         Console.WriteLine("- cartelle: mostra tutte le cartelle dei giocatori");
         Console.WriteLine("- tabellone / mostra tabellone: mostra il tabellone a 6 blocchi (numeri usciti in verde)");
         Console.WriteLine("- premi: mostra i premi assegnati fino a questo momento");
+        Console.WriteLine("- stato: mostra top 3 attuale e giocatori in tensione");
+        Console.WriteLine("- restart / esci: interrompe la partita e apre il menu di fine partita");
         Console.WriteLine("- help: mostra questo aiuto");
     }
 

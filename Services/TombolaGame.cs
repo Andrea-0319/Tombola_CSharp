@@ -129,6 +129,16 @@ public sealed class TombolaGame
                     _renderer.PulisciSchermo();
                     break;
 
+                case "stato":
+                    MostraStatoSintetico();
+                    break;
+
+                case "restart":
+                case "esci":
+                    _renderer.PulisciSchermo();
+                    _renderer.StampaMessaggio("Partita interrotta: apro il menu di fine partita.");
+                    return;
+
                 case "help":
                     _renderer.StampaHelp();
                     _renderer.AttendiInvio();
@@ -409,6 +419,25 @@ public sealed class TombolaGame
     {
         _renderer.PulisciSchermo();
         _renderer.StampaTabellone(_tabellone);
+        _renderer.AttendiInvio();
+        _renderer.PulisciSchermo();
+    }
+
+    private void MostraStatoSintetico()
+    {
+        _renderer.PulisciSchermo();
+
+        var classifica = CreaClassificaCorrente();
+        var inTensione = classifica
+            .Where(voce => voce.Mancanti is > 0 and <= SogliaTensione)
+            .ToList();
+
+        if (inTensione.Count > 0)
+        {
+            _renderer.StampaTensione(inTensione);
+        }
+
+        _renderer.StampaClassifica(classifica.Take(3).ToList());
         _renderer.AttendiInvio();
         _renderer.PulisciSchermo();
     }
