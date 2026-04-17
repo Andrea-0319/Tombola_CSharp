@@ -15,6 +15,9 @@ obj/
 # Test artifacts
 TestResults/
 
+# Runtime/generated outputs
+risultati_tombola/
+
 # OS files
 .DS_Store
 Thumbs.db
