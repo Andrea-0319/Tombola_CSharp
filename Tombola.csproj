@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Tombola</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tombola.Tests\**\*.cs" />
+    <EmbeddedResource Remove="Tombola.Tests\**\*" />
+    <None Remove="Tombola.Tests\**\*" />
+  </ItemGroup>
+</Project>

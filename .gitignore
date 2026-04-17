@@ -1,0 +1,20 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.rsuser
+
+# IDE folders
+.vs/
+.idea/
+
+# Test artifacts
+TestResults/
+
+# OS files
+.DS_Store
+Thumbs.db
